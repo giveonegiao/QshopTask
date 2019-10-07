@@ -9,6 +9,10 @@ from django.views.decorators.csrf import csrf_exempt
 from Buyer.models import *
 from django.views.decorators.cache import cache_page
 
+
+"""
+    卖家登录功能视图函数
+"""
 @cache_page(60*15)#使用缓存，缓存的寿命15分钟
 def login(request):
     error_message=""
@@ -89,6 +93,9 @@ def index(request):
     user_id = request.COOKIES.get("user_id")
     user = User.objects.get(id=int(user_id))
     return render(request,'seller/index.html',locals())
+
+
+
 @loginvalid
 def goods_list(request,status,page=1):
     user_id = request.COOKIES.get("user_id")

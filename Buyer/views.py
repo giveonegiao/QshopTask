@@ -20,6 +20,10 @@ def loginValid(fun):
             return HttpResponseRedirect("/Buyer/login/")
     return inner
 
+"""
+    买家登录功能视图函数
+    注册、登录、登出、主页面、base页
+"""
 
 def login(request):
     if request.method=="POST":
