@@ -6,7 +6,7 @@ urlpatterns = [
     path('logout/',logout),#买家登出功能
     path('index/',index),#买家主页面
     path('goods_list/',goods_list),
-    re_path('goods_details/(?P<id>\d+)/',goods_details),
+    re_path('goods_details/(?P<id>\d+)/',goods_details),#ajax功能
     path('user_center_info/',user_center_info),
     #支付功能
     path('pay_order/',pay_order),

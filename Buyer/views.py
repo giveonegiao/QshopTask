@@ -121,6 +121,8 @@ def goods_list(request):
         lenth=int(lenth)
         recommend=goods_list[:lenth]
     return render(request,'buyer/goods_list.html',locals())
+
+#ajax功能
 def goods_details(request,id):
     goods=Goods.objects.get(id=int(id))
     return render(request,'buyer/goods_details.html',locals())
