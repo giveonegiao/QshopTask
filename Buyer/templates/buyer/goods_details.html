@@ -1,0 +1,115 @@
+{% extends 'buyer/base.html' %}
+
+
+{% block title %}
+    商品详情页
+{% endblock %}
+{% block content %}
+	<div class="breadcrumb">
+		<a href="#">全部分类</a>
+		<span>></span>
+		<a href="#">新鲜水果</a>
+		<span>></span>
+		<a href="#">商品详情</a>
+	</div>
+
+	<div class="goods_detail_con clearfix">
+		<div class="goods_detail_pic fl"><img style="width: 100%;height: 100%" src="/static/{{ goods.picture }}"></div>
+
+		<div class="goods_detail_list fr">
+			<h3>{{ goods.goods_name }}</h3>
+			<p>{{ goods.goods_description }}</p>
+			<div class="prize_bar">
+				<span class="show_pirze">¥<em id="price">{{ goods.goods_price }}</em></span>
+				<span class="show_unit">单  位：500g</span>
+			</div>
+            <div class="goods_num clearfix">
+                <div class="num_name fl">数 量：</div>
+                <div class="num_add fl">
+                    <input type="text" id="number" onblur="add1()" class="num_show fl" value=1>
+                    <a href="javascript:;" onclick="add()" class="add fr">+</a>
+                    <a href="javascript:;" onclick="reduce()" class="minus fr">-</a>
+                </div>
+            </div>
+            <div class="total">总价：<em id="total">{{ goods.goods_price }}</em><em>元</em><p>库存：<em>{{ goods.goods_count }}</em></p></div>
+
+            <div class="operate_btn">
+                <a href="javascript:;" class="buy_btn" onclick="buy_now()">立即购买</a>
+                <a href="javascript:;" class="add_cart" onclick="add_cart(this)" id="{{ goods.id }}">加入购物车</a>
+            </div>
+		</div>
+	</div>
+
+{% block script %}
+    <script>
+        function add_cart(obj) {
+                var goods_id=obj.id;
+                var csrf_token='{{ csrf_token }}';
+                var count=$("#number").val();
+                var sendData ={
+                    "goods_id":goods_id,
+                    "count":count,
+                    "csrfmiddlewaretoken":csrf_token
+                };
+                $.ajax({
+                    url:"/Buyer/add_cart/",
+                    type:"POST",
+                    data:sendData,
+                    success:function (data) {
+                        alert(data["data"])
+                    },
+                    error:function (error) {
+                        console.log(error)
+                    }
+                })
+            }
+    </script>
+    <script>
+        function add() {
+            var value=parseFloat($("#number").val());
+            var price=parseFloat($("#price").text());
+            var goods_count={{ goods.goods_count }};
+            if (value<goods_count){
+                value+=1;
+                $("#number").val(value);
+            }else {
+                value=goods_count;
+                $("#number").val(value);
+            }
+            var total=value*price;
+            $("#total").text(total);
+        }
+        function add1() {
+            var value = parseFloat($("#number").val());
+            var price = parseFloat($("#price").text());
+            var goods_count={{ goods.goods_count }};
+            if (value>goods_count){
+                value=goods_count
+            }else if (value<1){
+                value=1
+            }
+            $("#number").val(value);
+            var total = value * price;
+            $("#total").text(total);
+        }
+        function reduce() {
+            var value=parseFloat($("#number").val());
+            var price=parseFloat($("#price").text());
+            if(value>1){
+                value-=1;
+                $("#number").val(value);
+            }else {
+                value=1;
+                $("number").val(1);
+            }
+            var total=value*price;
+            $("#total").text(total);
+        }
+        function buy_now() {
+            url="/Buyer/pay_order/?goods_id={{ goods.id }}&count="+$("#number").val();
+            window.location.href=url
+        }
+
+    </script>
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "seller/base.html" %}
+
+{% block title %}
+    商品订单页
+{% endblock %}
+
+{% block label %}
+    商品订单
+{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">订单列表</h6>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>订单编号</th>
+                    <th>订单商品</th>
+                    <th>订单数量</th>
+                    <th>收货人</th>
+                    <th>订单价格</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in order_list%}
+                <tr>
+                    <td>{{ order.order_id.order_number }}</td>
+                    <td>{{ order.goods_name }}</td>
+                    <td>{{ order.goods_count }}</td>
+                    <td>{{ order.store_id.username }}</td>
+                    <td>{{ order.goods_total_price }}.$</td>
+                    <td>
+                        {% ifequal order.order_status 0 %}
+                            <a  class="btn btn-warning" type="button" onclick="get_code()">提醒支付</a>
+                        {% endifequal %}
+                        {% ifequal order.order_status 1 %}
+                        <a href="/Seller/change_order/?order_id={{ order.id }}&order_status=2" class="btn btn-warning" type="button">收款发货</a>
+                        <a  class="btn btn-warning" type="button">修改地址</a>
+                        {% endifequal %}
+                        {% ifequal order.order_status 2 %}
+                            <a  class="btn btn-warning" type="button">提醒确认收货</a>
+                        {% endifequal %}
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot></tfoot>
+        </table>
+
+
+
+        <ul style="margin: 0 auto; margin-right: 50px;" class="pagination">
+            {% for p in all_orders.page_range %}
+                <li class="paginate_button page-item previous">
+                        <a class="page-link" href="/Seller/order_list/{{ p }}/">{{ p }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}

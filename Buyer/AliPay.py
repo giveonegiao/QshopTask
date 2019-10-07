@@ -1,0 +1,32 @@
+from alipay import AliPay
+
+alipay_public_key_string="""-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzcQPLSN0l0GlBABNUebMCvEYDQXLlDe++s1011pNZaIl/oxkSVoxYJQKkX3YKsbT3Mp8tCyf7d7SAiMyJWIeUA8Gmz723EraGFNTADyj5ohlQ2Q1Hx7WUKoZMlcG8g32SeqDgk6uRyVSruFyalH/8vwVGcb5mGzzL4TfzrYklffGv3RjkJ5IdT9vZROUZIUp+M+5PKU0OdpHC05rTpUbX5I1UjT+w8BzjfAnnWEnchGwtxe/VI9k288jyxKqdYeTpWhG8DaUtMzDFwipCz5pibO0UwAPu01w+WdSLIMiHZe6V3nJWMU9MtaWRWAneeo8mGbPwOoIvcewp9U2H8GwkQIDAQAB
+-----END PUBLIC KEY-----"""
+
+alipay_private_key_string="""-----BEGIN RSA PRIVATE KEY-----
+MIIEpQIBAAKCAQEAzcQPLSN0l0GlBABNUebMCvEYDQXLlDe++s1011pNZaIl/oxkSVoxYJQKkX3YKsbT3Mp8tCyf7d7SAiMyJWIeUA8Gmz723EraGFNTADyj5ohlQ2Q1Hx7WUKoZMlcG8g32SeqDgk6uRyVSruFyalH/8vwVGcb5mGzzL4TfzrYklffGv3RjkJ5IdT9vZROUZIUp+M+5PKU0OdpHC05rTpUbX5I1UjT+w8BzjfAnnWEnchGwtxe/VI9k288jyxKqdYeTpWhG8DaUtMzDFwipCz5pibO0UwAPu01w+WdSLIMiHZe6V3nJWMU9MtaWRWAneeo8mGbPwOoIvcewp9U2H8GwkQIDAQABAoIBAQCDO5YKTeCgT4e1I5QstixQli+mrpmGcH9naf4pEzjlpyLgVB3qApIXbJPI8yAZODILUUFzkDp39XKvVk83NHrsyIiIHwJGwZ6TgSEgt4w5Dai38INI09wQGkxzpLmTS4BW6DDzvMa+LXmse7EDSkUZbdjvVc3+fw4isnYjWlu/IOC+Bsdjw6bvI09vvYehPpwzgHhuEwSsLX+LQsczWVO4OCadG/5K38C/SCuhD1TDV0Y0BDXVUdWk4TnunArhqCt6SgxmWUNrFWvDF1YSi8QuRh7drCBp4V1pb++4mwzcutfi4gzzgvc+9SlYAJaooo1mQfa/XW4L0JJOxiGj7P5ZAoGBAPWI5Rnl8wqY64xFqd7syXsgVrIeWpBqKpGtRq+N+yKAHSeiwU+dH7viy44dhy4IKC1chHYu//isUdASJ1YDT56S7iO2r1ucZzvy9Tk6x6rOM+K1yoz/2YLRx+IQaGRrmbOu+3f46ToZpK1bIVseyElGpE9MN/oUlip8muJZ0Or3AoGBANaJO9k2xWPKzByHdy/iJGHFkV4lm5qRYon80Sv7ANkmVT+6iKvKC/BNqYliSa1zfa88R7IXEj18iGuGHwaBUM3rmbZZhpNCzIDalcmjypNO3q7v9bcfciuz+vVRjlqfoduabnfaOzjTID6OPZTe+kZEbJDvdTS2TwtcSLF365a3AoGBAORRzijNCbobBT5FMXdY3Oqf4b50N2b/MmKQrKBm+NbWJ0ZKNFRiGbZPaVXX43JMp3+2/n4fqmuFYfaISwfSwGEG5GdVY69euyil/p6fKDiO0vTIc3e2Gn9pr+NpuolW/XB3EOQ5FDewzM9fZJ8k+r4Y8IXErHDiX9lWUXiWaI11AoGABEdKXUOdXiceOPduphLRfO2uv3zqhIOfvna/SSxBURNVoea7cQmfgVRbLDU8mOvztrnyCBgzsew44EQVfFC55tFrCFrytx8e6vbxA8tzb8qj4ENC2DsVUM/PEnNk7mO+m52R1GwSwEhdnUHC8qQbw6j7rUxJPxrfqq9Vd8yXczMCgYEAhhDzDkrKKCXHNhlGx+aVjWyF9GxZ206oahD1ZtM/lgkOYPdtWpaV8yHUbgUpKANWTQ4GdCy7ux2gCaZcG72HGnC/Ge1s6f3nn/k+1WAvBI78jxXfKjV9926o/MaHdufa+Rs3SOkwvauqIg39XoxyHwmmZX/JcrQNj4AVyNu5V54=
+-----END RSA PRIVATE KEY-----"""
+
+#实例化支付
+alipay=AliPay(
+    appid="2016101200667748",
+    app_notify_url=None,
+    app_private_key_string=alipay_private_key_string,
+    alipay_public_key_string=alipay_public_key_string,
+    sign_type="RSA2"
+)
+
+#实例化订单
+order_string=alipay.api_alipay_trade_page_pay(
+    out_trade_no="10000000001",#订单号
+    total_amount=str(1000),#支付金额，是字符串
+    subject="生鲜交易",
+    return_url=None,
+    notify_url=None
+)#网页支付订单
+
+#拼接收款地址=支付宝网管+订单返回参数
+result = "https://openapi.alipaydev.com/gateway.do?"+order_string
+
+print(result)

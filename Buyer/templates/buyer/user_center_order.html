@@ -1,0 +1,96 @@
+{% extends 'buyer/base.html' %}
+
+{% block title %}
+    全部订单
+{% endblock %}
+{% block content %}
+    <div class="main_con clearfix">
+            <div class="left_menu_con clearfix">
+                <h3>用户中心</h3>
+                <ul>
+                    <li><a href="/Buyer/user_center_info/">· 个人信息</a></li>
+                    <li><a href="/Buyer/user_center_order/" class="active">· 全部订单</a></li>
+                    <li><a href="/Buyer/user_center_site/">· 收货地址</a></li>
+                </ul>
+            </div>
+            <div class="right_content clearfix">
+                    <h3 class="common_title2">全部订单</h3>
+
+
+                {% for o in order_list %}
+                    <ul class="order_list_th w978 clearfix">
+                        <li class="col01">{{ o.order_data }}</li>
+                        <li class="col02">订单号：{{ o.order_number }}</li>
+                        {% ifequal o.order_status 0 %}
+                            <li class="col02 stress">未支付</li>
+                        {% endifequal %}
+                        {% ifequal o.order_status 1 %}
+                            <li class="col02 stress">已支付</li>
+                        {% endifequal %}
+                        {% ifequal o.order_status 2 %}
+                            <li class="col02 stress">待收货</li>
+                        {% endifequal %}
+                        {% ifequal o.order_status 3 %}
+                            <li class="col02 stress">已签收</li>
+                        {% endifequal %}
+                    </ul>
+                    <table class="order_list_table w980">
+                        <tbody>
+                            <tr>
+                                <td width="55%">
+                                    {% for g in o.orderinfo_set.all %}
+                                    <ul class="order_goods_list clearfix">
+                                        <li class="col01"><img src="/static/{{ g.goods_picture }}"></li>
+                                        <li class="col02">{{ g.goods_name }}<em>{{ g.goods_price }}元/500g</em></li>
+                                        <li class="col03">{{ g.goods_count }}</li>
+                                        <li class="col03">
+                                            {% ifequal g.order_status 0 %}
+                                               未支付
+                                            {% endifequal %}
+                                            {% ifequal g.order_status 1 %}
+                                                已支付
+                                            {% endifequal %}
+                                            {% ifequal g.order_status 2 %}
+                                                待收货
+                                            {% endifequal %}
+                                            {% ifequal g.order_status 3 %}
+                                                已签收
+                                            {% endifequal %}
+                                        </li>
+                                        <li class="col04">{{ g.goods_total_price }}元</li>
+                                        <li class="col03">
+                                            {% ifequal g.order_status 0 %}
+                                                <a  href="/Buyer/alipay/?order_number={{ g.goods_id }}&total={{ g.goods_total_price }}">去支付</a>
+                                            {% endifequal %}
+                                            {% ifequal g.order_status 1 %}
+                                                继续购买
+                                            {% endifequal %}
+                                        </li>
+                                    </ul>
+                                    {% endfor %}
+                                </td>
+                                <td width="15%">{{ o.order_total }}元</td>
+
+{#                                {% ifequal o.order_status 0 %}#}
+{#                                    <td width="15%"><a href="/Buyer/alipay/?order_number={{ o.order_number }}&total={{ o.order_total }}" class="oper_btn">去付款</a></td>#}
+{#                                {% else %}#}
+                                    <td width="15%"><a href="#" class="oper_btn">查看详情</a></td>
+{#                                {% endifequal %}#}
+
+                            </tr>
+                        </tbody>
+                    </table>
+                {% endfor %}
+
+                    <div class="pagenation">
+                        <a href="#">上一页</a>
+                        <a href="#" class="active">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">下一页></a>
+                    </div>
+            </div>
+        </div>
+{% endblock %}
