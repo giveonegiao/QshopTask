@@ -93,6 +93,7 @@ def index(request):
             result.append({"type":ty,"type_goods_list":all_type_good})
     return render(request,'buyer/index.html',locals())
 
+
 def goods_list(request):
     """
     type 代表请求的类型

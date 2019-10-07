@@ -13,7 +13,7 @@ urlpatterns = [
     re_path('goods_list/(?P<status>[01])/(?P<page>\d+)/',goods_list),
     re_path('goods_status/(?P<state>\w+)/(?P<id>\d+)/',goods_status),
     path('person_info/',person_info),
-    path('goods_add/',goods_add),
+    path('goods_add/',goods_add),#商品数据操作功能url
     path('send_login_code/',send_login_code),
     re_path(r'order_list/(?P<status>\d{1})',order_list),
     path("change_order/",change_order),

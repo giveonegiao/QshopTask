@@ -152,6 +152,8 @@ def person_info(request):
             user.photo=Photo
         user.save()
     return render(request,'seller/person_info.html',locals())
+
+#商品上架下架
 def goods_add(request):
     user_id = request.COOKIES.get("user_id")
     user = User.objects.get(id=int(user_id))
