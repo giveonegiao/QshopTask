@@ -8,10 +8,9 @@ urlpatterns = [
     path('goods_list/',goods_list),
     re_path('goods_details/(?P<id>\d+)/',goods_details),
     path('user_center_info/',user_center_info),
+    #支付功能
     path('pay_order/',pay_order),
-
     path('pay_order_more/',pay_order_more),
-
     path('alipay/',AlipayViews),
     path('pay_result/',pay_result),
     path('add_cart/',add_cart),

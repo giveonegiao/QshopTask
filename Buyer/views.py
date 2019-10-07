@@ -130,6 +130,10 @@ def user_center_info(request):
     user=User.objects.get(id=int(user_id))
     return render(request,'buyer/user_center_info.html',locals())
 
+
+"""
+    支付功能视图函数
+"""
 @loginValid
 def pay_order(request):
     goods_id=request.GET.get("goods_id")

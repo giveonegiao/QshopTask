@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'djcelery'
 ]
 
+
 MIDDLEWARE = [
    # 'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -146,7 +147,7 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'static')
 
 
 
-
+#支付
 alipay_public_key_string = """-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzcQPLSN0l0GlBABNUebMCvEYDQXLlDe++s1011pNZaIl/oxkSVoxYJQKkX3YKsbT3Mp8tCyf7d7SAiMyJWIeUA8Gmz723EraGFNTADyj5ohlQ2Q1Hx7WUKoZMlcG8g32SeqDgk6uRyVSruFyalH/8vwVGcb5mGzzL4TfzrYklffGv3RjkJ5IdT9vZROUZIUp+M+5PKU0OdpHC05rTpUbX5I1UjT+w8BzjfAnnWEnchGwtxe/VI9k288jyxKqdYeTpWhG8DaUtMzDFwipCz5pibO0UwAPu01w+WdSLIMiHZe6V3nJWMU9MtaWRWAneeo8mGbPwOoIvcewp9U2H8GwkQIDAQAB
 -----END PUBLIC KEY-----"""

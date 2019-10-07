@@ -1,3 +1,4 @@
+
 from alipay import AliPay
 
 alipay_public_key_string="""-----BEGIN PUBLIC KEY-----

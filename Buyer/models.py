@@ -1,6 +1,7 @@
 from django.db import models
 from Seller.models import User
 
+#订单建模
 class PayOrder(models.Model):
     """
     订单表
