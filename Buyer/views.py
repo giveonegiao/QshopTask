@@ -3,7 +3,7 @@ import datetime
 from Seller.models import *
 from django.shortcuts import render,HttpResponseRedirect
 from django.http import JsonResponse
-from Seller.views import setPassword
+from Seller.views import setPassword#分页
 from Buyer.models import *
 from alipay import AliPay
 

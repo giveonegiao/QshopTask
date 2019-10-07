@@ -55,6 +55,8 @@ def loginvalid(fun):
         else:
             return HttpResponseRedirect("/Seller/login/")
     return inner
+
+
 def setPassword(password):
     md5=hashlib.md5()
     md5.update(password.encode())
@@ -95,7 +97,7 @@ def index(request):
     return render(request,'seller/index.html',locals())
 
 
-
+#商品分页
 @loginvalid
 def goods_list(request,status,page=1):
     user_id = request.COOKIES.get("user_id")
@@ -107,9 +109,14 @@ def goods_list(request,status,page=1):
         goodses=Goods.objects.filter(goods_status=0)
     else:
         goodses = Goods.objects.all()
+
+    # 分页
     all_goods=Paginator(goodses,10)
     goods_list=all_goods.page(page)
     return render(request,'seller/goods_list.html',locals())
+
+
+
 def goods_status(request,state,id):
     id=int(id)
     goods=Goods.objects.get(id=id)
@@ -240,6 +247,8 @@ def send_login_code(request):
         result["data"]="请求错误"
     return JsonResponse(result)
 
+
+#订单分页
 @loginvalid
 def order_list(request,status):
     """

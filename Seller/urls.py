@@ -9,6 +9,7 @@ urlpatterns = [
     path('index/',index),#卖家主页面url
 
 
+
     re_path('goods_list/(?P<status>[01])/(?P<page>\d+)/',goods_list),
     re_path('goods_status/(?P<state>\w+)/(?P<id>\d+)/',goods_status),
     path('person_info/',person_info),
