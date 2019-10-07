@@ -1,7 +1,7 @@
 from Qshop.urls import *
 from Buyer.views import *
 urlpatterns = [
-    path('login/',login),#买家登录页面url
+    path('login/',login),#买家登录校验页面url
     path('register/',register),#买家注册页面url
     path('logout/',logout),#买家登出功能
     path('index/',index),#买家主页面

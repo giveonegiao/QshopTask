@@ -172,6 +172,13 @@ def goods_add(request):
         goods.save()
     return render(request,'seller/goods_add.html',locals())
 
+
+
+"""
+    后端卖家邮箱密码验证登录
+    钉钉信息验证登录，视图函数
+    
+"""
 import json
 import random
 def random_code(len=6):

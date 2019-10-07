@@ -9,7 +9,10 @@ from alipay import AliPay
 
 import logging
 # collect=logging.getLogger("django")
-
+"""
+    后端校验买家邮箱密码
+    校验功能视图函数
+"""
 def loginValid(fun):
     def inner(request,*args,**kwargs):
         cookie_user=request.COOKIES.get("username")

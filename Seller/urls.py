@@ -4,7 +4,7 @@ from django.views.decorators.cache import cache_page
 
 urlpatterns = [
     path('register/',cache_page(60*15)(register)),#卖家注册页面url
-    path('login/',login),#卖家登录页面url
+    path('login/',login),#卖家登录校验页面url
     path('logout/',logout),#卖家登出url
     path('index/',index),#卖家主页面url
 
