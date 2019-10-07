@@ -12,7 +12,7 @@ import logging
 """
 
     后端校验买家邮箱密码
-    校验功能视图函数
+    校验功能视图函数 
     
 """
 def loginValid(fun):
